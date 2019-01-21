@@ -34,3 +34,7 @@ Any dependencies are installed and then the CLI will open the scene in a new bro
 Click on the tree to make a bird appear and start flying randomly around the scene. Each time you click the tree, a new bird appears until a maximum number is reached.
 
 Learn more about how to build your own scenes in our [documentation](https://docs.decentraland.org/) site.
+
+## Copyright info
+
+This scene is protected with a standard Apache 2 licence. See the terms and conditions in the [LICENSE](/LICENSE) file.
