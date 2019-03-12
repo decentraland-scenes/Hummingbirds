@@ -36,9 +36,9 @@ export class FlyAround implements ISystem  {
         log("new position")
         lerp.oldPos = transform.position
         // new random position
-        lerp.nextPos.x = (Math.random() * 14) + 1
+        lerp.nextPos.x = (Math.random() * 12) + 2
         lerp.nextPos.y = (Math.random() * 3) + 1
-        lerp.nextPos.z = (Math.random() * 14) + 1
+        lerp.nextPos.z = (Math.random() * 12) + 2
         lerp.fraction = 0
         lerp.pause = Math.random() * 500
         // face new position
