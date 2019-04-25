@@ -25,8 +25,8 @@ export const birds = engine.getComponentGroup(LerpData)
 export class FlyAround implements ISystem  {
   update(dt: number) {
     for (let bird of birds.entities) {
-      let transform = bird.get(Transform)
-      let lerp = bird.get(LerpData)
+      let transform = bird.getComponent(Transform)
+      let lerp = bird.getComponent(LerpData)
       if (lerp.fraction < 1) {
         transform.position = Vector3.Lerp(lerp.oldPos, lerp.nextPos, lerp.fraction)
         lerp.fraction += 1/50
@@ -36,9 +36,9 @@ export class FlyAround implements ISystem  {
         log("new position")
         lerp.oldPos = transform.position
         // new random position
-        lerp.nextPos.x = Math.random() * 10
+        lerp.nextPos.x = (Math.random() * 12) + 2
         lerp.nextPos.y = (Math.random() * 3) + 1
-        lerp.nextPos.z = Math.random() * 10
+        lerp.nextPos.z = (Math.random() * 12) + 2
         lerp.fraction = 0
         lerp.pause = Math.random() * 500
         // face new position

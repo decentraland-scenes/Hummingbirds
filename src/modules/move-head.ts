@@ -12,7 +12,7 @@ export class Timer {
 export class MoveHead implements ISystem  {
     update(dt: number) {
       for (let bird of birds.entities) {
-        let time = bird.get(Timer)
+        let time = bird.getComponent(Timer)
         time.timeLeft -= dt
         if (time.timeLeft < 0){
             time.timeLeft = INTERVAL
@@ -27,8 +27,8 @@ export class MoveHead implements ISystem  {
 export function randomHeadMovement(bird: Entity){
     const anim = Math.random()
     if ( anim < 0.4){
-      bird.get(GLTFShape).getClip('Bird_look').play()
+      bird.getComponent(Animator).getClip('Bird_look').play()
     } else if (anim < 0.8) {
-      bird.get(GLTFShape).getClip('Bird_shake').play()
+      bird.getComponent(Animator).getClip('Bird_shake').play()
     }
 }
