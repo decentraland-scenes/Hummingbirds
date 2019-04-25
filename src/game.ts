@@ -71,7 +71,7 @@ function newBird(){
     bird.getComponent(Animator).addClip(shakeAnim)
     flyAnim.play()
    
-    const nextPos = new Vector3(Math.random() * 10 ,Math.random() * 5 ,Math.random() * 10)
+    const nextPos = new Vector3((Math.random() * 12) + 2 ,(Math.random() * 3) + 1 ,(Math.random() * 12) + 2)
     bird.addComponent(new LerpData(startPosition, nextPos, 0, 200))
     bird.addComponent(new Timer())
 
