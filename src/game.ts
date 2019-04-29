@@ -19,7 +19,7 @@ tree.addComponent(new Transform({
 }))
 tree.addComponent(new GLTFShape("models/Tree.gltf"))
 tree.addComponent(new Animator)
-let treeClip = new AnimationClip('Tree_Action')
+let treeClip = new AnimationState('Tree_Action')
 treeClip.looping = false
 tree.getComponent(Animator).addClip(treeClip)
 tree.addComponent(
@@ -62,11 +62,11 @@ function newBird(){
 
     bird.addComponent(new GLTFShape("models/hummingbird.glb"))
     bird.addComponent(new Animator() )
-    const flyAnim = new AnimationClip('fly')
+    const flyAnim = new AnimationState('fly')
     flyAnim.speed = 2
-    const lookAnim = new AnimationClip('look')
+    const lookAnim = new AnimationState('look')
     lookAnim.looping = false
-    const shakeAnim = new AnimationClip('shake')
+    const shakeAnim = new AnimationState('shake')
     shakeAnim.looping = false
     bird.getComponent(Animator).addClip(flyAnim)
     bird.getComponent(Animator).addClip(lookAnim)
