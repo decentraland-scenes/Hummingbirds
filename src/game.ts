@@ -24,7 +24,9 @@ treeClip.looping = false
 tree.getComponent(Animator).addClip(treeClip)
 tree.addComponent(
   new OnPointerDown(e => {
-    tree.getComponent(Animator).getClip('Tree_Action').play()
+    let anim = tree.getComponent(Animator).getClip('Tree_Action')
+    anim.reset()
+    anim.play()
     log("new bird")
     newBird()
   })
@@ -44,7 +46,7 @@ engine.addEntity(ground)
 
 // Starting coordinates for all birds
 
-const startPosition = new Vector3(5, 3.5, 13)
+const startPosition = new Vector3(13, 3.5, 5)
 const birdScale = new Vector3(0.2, 0.2, 0.2)
 
 // Create a new bird
@@ -58,13 +60,13 @@ function newBird(){
       scale: birdScale
     }))
 
-    bird.addComponent(new GLTFShape("models/hummingbird.gltf"))
+    bird.addComponent(new GLTFShape("models/hummingbird.glb"))
     bird.addComponent(new Animator() )
-    const flyAnim = new AnimationClip('Bird_fly')
+    const flyAnim = new AnimationClip('fly')
     flyAnim.speed = 2
-    const lookAnim = new AnimationClip('Bird_look')
+    const lookAnim = new AnimationClip('look')
     lookAnim.looping = false
-    const shakeAnim = new AnimationClip('Bird_shake')
+    const shakeAnim = new AnimationClip('shake')
     shakeAnim.looping = false
     bird.getComponent(Animator).addClip(flyAnim)
     bird.getComponent(Animator).addClip(lookAnim)
