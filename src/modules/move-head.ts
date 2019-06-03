@@ -24,11 +24,15 @@ export class MoveHead implements ISystem  {
 }
 
 // Randomly determine if any additional animations are played
-export function randomHeadMovement(bird: Entity){
+export function randomHeadMovement(bird: IEntity){
     const anim = Math.random()
     if ( anim < 0.4){
-      bird.getComponent(Animator).getClip('Bird_look').play()
+	  	let move = bird.getComponent(Animator).getClip('Bird_look')
+	  	move.play()
+	 	move.looping = false
     } else if (anim < 0.8) {
-      bird.getComponent(Animator).getClip('Bird_shake').play()
+		let move = bird.getComponent(Animator).getClip('Bird_shake')
+	  	move.play()
+	  	move.looping = false
     }
 }

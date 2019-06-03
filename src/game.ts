@@ -23,9 +23,10 @@ let treeClip = new AnimationState('Tree_Action')
 treeClip.looping = false
 tree.getComponent(Animator).addClip(treeClip)
 tree.addComponent(
-  new OnPointerDown(e => {
+  new OnClick(e => {
     let anim = tree.getComponent(Animator).getClip('Tree_Action')
-    anim.reset()
+    //anim.reset()
+    //anim.looping = false
     anim.play()
     log("new bird")
     newBird()
@@ -51,6 +52,8 @@ const birdScale = new Vector3(0.2, 0.2, 0.2)
 
 // Create a new bird
 
+//let birdShape = new GLTFShape("models/hummingbird.glb")
+
 function newBird(){
   if (birds.entities.length > 10) {return}
     const bird = new Entity()
@@ -60,17 +63,19 @@ function newBird(){
       scale: birdScale
     }))
 
-    bird.addComponent(new GLTFShape("models/hummingbird.glb"))
-    bird.addComponent(new Animator() )
+	let birdShape = new GLTFShape("models/hummingbird.glb")
+    bird.addComponent(birdShape)
+    let birdAnim = new Animator()
+    bird.addComponent(birdAnim)
     const flyAnim = new AnimationState('fly')
     flyAnim.speed = 2
-    const lookAnim = new AnimationState('look')
-    lookAnim.looping = false
-    const shakeAnim = new AnimationState('shake')
-    shakeAnim.looping = false
-    bird.getComponent(Animator).addClip(flyAnim)
-    bird.getComponent(Animator).addClip(lookAnim)
-    bird.getComponent(Animator).addClip(shakeAnim)
+    // const lookAnim = new AnimationState('look')
+    // lookAnim.looping = false
+    // const shakeAnim = new AnimationState('shake')
+    // shakeAnim.looping = false
+    birdAnim.addClip(flyAnim)
+    // birdAnim.addClip(lookAnim)
+    // birdAnim.addClip(shakeAnim)
     flyAnim.play()
    
     const nextPos = new Vector3((Math.random() * 12) + 2 ,(Math.random() * 3) + 1 ,(Math.random() * 12) + 2)
