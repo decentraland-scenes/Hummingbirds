@@ -52,7 +52,7 @@ const birdScale = new Vector3(0.2, 0.2, 0.2)
 
 // Create a new bird
 
-//let birdShape = new GLTFShape("models/hummingbird.glb")
+let birdShape = new GLTFShape("models/hummingbird.glb")
 
 function newBird(){
   if (birds.entities.length > 10) {return}
@@ -63,7 +63,6 @@ function newBird(){
       scale: birdScale
     }))
 
-	let birdShape = new GLTFShape("models/hummingbird.glb")
     bird.addComponent(birdShape)
     let birdAnim = new Animator()
     bird.addComponent(birdAnim)
