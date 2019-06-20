@@ -27,12 +27,8 @@ export class MoveHead implements ISystem  {
 export function randomHeadMovement(bird: IEntity){
     const anim = Math.random()
     if ( anim < 0.4){
-	  	let move = bird.getComponent(Animator).getClip('Bird_look')
-	  	move.play()
-	 	move.looping = false
+      bird.getComponent(Animator).getClip('Bird_look').play()
     } else if (anim < 0.8) {
-		let move = bird.getComponent(Animator).getClip('Bird_shake')
-	  	move.play()
-	  	move.looping = false
+      bird.getComponent(Animator).getClip('Bird_shake').play()
     }
 }

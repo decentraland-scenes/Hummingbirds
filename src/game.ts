@@ -7,7 +7,11 @@ import { Timer, MoveHead } from "./modules/move-head";
 
 engine.addSystem(new FlyAround())
 
-engine.addSystem(new MoveHead())
+//engine.addSystem(new MoveHead())
+
+// a message bus to sync state for all players
+const sceneMessageBus = new MessageBus()
+
 
 ////////////////////
 // Lay out environment
@@ -24,12 +28,7 @@ treeClip.looping = false
 tree.getComponent(Animator).addClip(treeClip)
 tree.addComponent(
   new OnClick(e => {
-    let anim = tree.getComponent(Animator).getClip('Tree_Action')
-    //anim.reset()
-    //anim.looping = false
-    anim.play()
-    log("new bird")
-    newBird()
+	sceneMessageBus.emit("clickedTree", {birds: birds.entities.length})
   })
 )
 engine.addEntity(tree)
@@ -55,7 +54,6 @@ const birdScale = new Vector3(0.2, 0.2, 0.2)
 let birdShape = new GLTFShape("models/hummingbird.glb")
 
 function newBird(){
-  if (birds.entities.length > 10) {return}
     const bird = new Entity()
 
     bird.addComponent(new Transform({
@@ -85,3 +83,29 @@ function newBird(){
     
     engine.addEntity(bird)
 }
+
+sceneMessageBus.on("clickedTree", (info) => {
+	if (birds.entities.length > 10) {return}
+	let missingBirds = info.birds - birds.entities.length
+	for (let i = 0; i <= missingBirds; i++ ){
+		log("new bird")
+		newBird()
+	}	
+	let anim = tree.getComponent(Animator).getClip('Tree_Action')
+	anim.stop()
+	anim.play()
+	anim.looping = false	
+})
+
+
+// To get the initial state of the scene when joining
+sceneMessageBus.emit("getBirdState",{})
+
+// To return the initial state of the scene to new players
+sceneMessageBus.on("getBirdState", () => {
+	if (birds.entities.length > 0){
+		sceneMessageBus.emit("clickedTree", {birds: birds.entities.length})
+	}
+});
+
+
