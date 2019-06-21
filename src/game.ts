@@ -25,8 +25,7 @@ tree.getComponent(Animator).addClip(treeClip)
 tree.addComponent(
   new OnClick(e => {
     let anim = tree.getComponent(Animator).getClip('Tree_Action')
-    //anim.reset()
-    //anim.looping = false
+    anim.stop()
     anim.play()
     log("new bird")
     newBird()
