@@ -4,7 +4,7 @@ A scene where hummingbirds spawn when you click a tree. Each bird moves on its o
 
 ![](screenshot/screenshot.png)
 
-[Explore the scene](https://hummingbirds-ujovmbtmui.now.sh): this link takes you to a copy of the scene deployed to a remote server where you can interact with it just as if you were running `dcl start` locally.
+[Explore the scene](https://hummingbirds-unrchjydpo.now.sh): this link takes you to a copy of the scene deployed to a remote server where you can interact with it just as if you were running `dcl start` locally.
 
 **Install the CLI**
 
