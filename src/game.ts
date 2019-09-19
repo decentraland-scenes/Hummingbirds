@@ -1,13 +1,12 @@
-import { FlyAround, birds, LerpData } from "./modules/random-flying";
+import utils from "../node_modules/decentraland-ecs-utils/index"
+
 import { Timer, MoveHead } from "./modules/move-head";
 
 
 
 // add systems to the engine
 
-engine.addSystem(new FlyAround())
-
-engine.addSystem(new MoveHead())
+//engine.addSystem(new MoveHead())
 
 ////////////////////
 // Lay out environment
@@ -53,8 +52,14 @@ const birdScale = new Vector3(0.2, 0.2, 0.2)
 
 let birdShape = new GLTFShape("models/hummingbird.glb")
 
+let birdCounter = 0
+
+
 function newBird(){
-  if (birds.entities.length > 10) {return}
+  if (birdCounter > 10) {return}
+	
+ 	birdCounter += 1
+
     const bird = new Entity()
 
     bird.addComponent(new Transform({
@@ -72,15 +77,30 @@ function newBird(){
     // const shakeAnim = new AnimationState('shake')
     // shakeAnim.looping = false
     birdAnim.addClip(flyAnim)
-    // birdAnim.addClip(lookAnim)
-    // birdAnim.addClip(shakeAnim)
     flyAnim.play()
    
+	// first sprint
     const nextPos = new Vector3((Math.random() * 12) + 2 ,(Math.random() * 3) + 1 ,(Math.random() * 12) + 2)
-    bird.addComponent(new LerpData(startPosition, nextPos, 0, 200))
-    bird.addComponent(new Timer())
+	bird.getComponent(Transform).lookAt(nextPos)
+	bird.addComponent(new utils.MoveTransformComponent(
+		startPosition,
+		nextPos,
+		2
+	))
 
-    bird.getComponent(Transform).lookAt(nextPos)
-    
+	// keep sprinting on a regular basis
+	bird.addComponent(new utils.Interval (
+		Math.floor(Math.random() * 3000) + 3000,
+		() => {
+			const nextPos = new Vector3((Math.random() * 12) + 2 ,(Math.random() * 3) + 1 ,(Math.random() * 12) + 2)
+			bird.getComponent(Transform).lookAt(nextPos)
+			bird.addComponent(new utils.MoveTransformComponent(
+				bird.getComponent(Transform).position,
+				nextPos,
+				2
+			))
+		}
+	))
+	
     engine.addEntity(bird)
 }
