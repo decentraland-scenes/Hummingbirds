@@ -1,8 +1,5 @@
 import utils from "../node_modules/decentraland-ecs-utils/index"
 
-import { Timer, MoveHead } from "./modules/move-head";
-
-
 
 // add systems to the engine
 
@@ -72,10 +69,10 @@ function newBird(){
     bird.addComponent(birdAnim)
     const flyAnim = new AnimationState('fly')
     flyAnim.speed = 2
-    // const lookAnim = new AnimationState('look')
-    // lookAnim.looping = false
-    // const shakeAnim = new AnimationState('shake')
-    // shakeAnim.looping = false
+    const lookAnim = new AnimationState('look')
+    lookAnim.looping = false
+    const shakeAnim = new AnimationState('shake')
+    shakeAnim.looping = false
     birdAnim.addClip(flyAnim)
     flyAnim.play()
    
@@ -97,10 +94,28 @@ function newBird(){
 			bird.addComponent(new utils.MoveTransformComponent(
 				bird.getComponent(Transform).position,
 				nextPos,
-				2
+				2,
+				() => {
+					randomHeadMovement(bird)
+				}
 			))
 		}
 	))
 	
     engine.addEntity(bird)
+}
+
+
+// Randomly determine if any head moving animations are played
+export function randomHeadMovement(bird: IEntity){
+    const anim = Math.random()
+    if ( anim < 0.2){
+	  	let move = bird.getComponent(Animator).getClip('Bird_look')
+	  	move.play()
+	 	move.looping = false
+    } else if (anim > 0.8) {
+		let move = bird.getComponent(Animator).getClip('Bird_shake')
+	  	move.play()
+	  	move.looping = false
+    }
 }
