@@ -1,8 +1,4 @@
-import utils from '../node_modules/decentraland-ecs-utils/index'
-
-// add systems to the engine
-
-//engine.addSystem(new MoveHead())
+import * as utils from '@dcl/ecs-scene-utils'
 
 ////////////////////
 // Lay out environment
