@@ -12,15 +12,13 @@ tree.addComponent(
 )
 tree.addComponent(new GLTFShape('models/Tree.gltf'))
 tree.addComponent(new Animator())
-let treeClip = new AnimationState('Tree_Action')
-treeClip.looping = false
+let treeClip = new AnimationState('Tree_Action', { looping: false })
 tree.getComponent(Animator).addClip(treeClip)
 tree.addComponent(
   new OnPointerDown(
     (e) => {
-      let anim = tree.getComponent(Animator).getClip('Tree_Action')
-      anim.stop()
-      anim.play()
+      //treeClip.stop()
+      treeClip.play()
       log('new bird')
       newBird()
     },
@@ -72,12 +70,10 @@ function newBird() {
   bird.addComponent(birdShape)
   let birdAnim = new Animator()
   bird.addComponent(birdAnim)
-  const flyAnim = new AnimationState('fly')
+  const flyAnim = new AnimationState('fly', { layer: 0 })
   flyAnim.speed = 2
-  const lookAnim = new AnimationState('look')
-  lookAnim.looping = false
-  const shakeAnim = new AnimationState('shake')
-  shakeAnim.looping = false
+  const lookAnim = new AnimationState('look', { looping: false, layer: 1 })
+  const shakeAnim = new AnimationState('shake', { looping: false, layer: 1 })
   birdAnim.addClip(flyAnim)
   birdAnim.addClip(lookAnim)
   birdAnim.addClip(shakeAnim)
@@ -123,10 +119,8 @@ export function randomHeadMovement(bird: IEntity) {
   if (anim < 0.2) {
     let move = bird.getComponent(Animator).getClip('look')
     move.play()
-    move.looping = false
   } else if (anim > 0.8) {
     let move = bird.getComponent(Animator).getClip('shake')
     move.play()
-    move.looping = false
   }
 }
