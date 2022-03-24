@@ -7,12 +7,12 @@ const tree = new Entity()
 tree.addComponent(
   new Transform({
     position: new Vector3(8, 0, 8),
-    scale: new Vector3(1.6, 1.6, 1.6),
+    scale: new Vector3(1.6, 1.6, 1.6)
   })
 )
 tree.addComponent(new GLTFShape('models/Tree.gltf'))
 tree.addComponent(new Animator())
-let treeClip = new AnimationState('Tree_Action', { looping: false })
+const treeClip = new AnimationState('Tree_Action', { looping: false })
 tree.getComponent(Animator).addClip(treeClip)
 tree.addComponent(
   new OnPointerDown(
@@ -31,7 +31,7 @@ const ground = new Entity()
 ground.addComponent(
   new Transform({
     position: new Vector3(8, 0, 8),
-    scale: new Vector3(1.6, 1.6, 1.6),
+    scale: new Vector3(1.6, 1.6, 1.6)
   })
 )
 ground.addComponent(new GLTFShape('models/Ground.gltf'))
@@ -47,7 +47,7 @@ const birdScale = new Vector3(0.2, 0.2, 0.2)
 
 // Create a new bird
 
-let birdShape = new GLTFShape('models/hummingbird.glb')
+const birdShape = new GLTFShape('models/hummingbird.glb')
 
 let birdCounter = 0
 
@@ -63,12 +63,12 @@ function newBird() {
   bird.addComponent(
     new Transform({
       position: startPosition,
-      scale: birdScale,
+      scale: birdScale
     })
   )
 
   bird.addComponent(birdShape)
-  let birdAnim = new Animator()
+  const birdAnim = new Animator()
   bird.addComponent(birdAnim)
   const flyAnim = new AnimationState('fly', { layer: 0 })
   flyAnim.speed = 2
@@ -117,10 +117,10 @@ function newBird() {
 export function randomHeadMovement(bird: IEntity) {
   const anim = Math.random()
   if (anim < 0.2) {
-    let move = bird.getComponent(Animator).getClip('look')
+    const move = bird.getComponent(Animator).getClip('look')
     move.play()
   } else if (anim > 0.8) {
-    let move = bird.getComponent(Animator).getClip('shake')
+    const move = bird.getComponent(Animator).getClip('shake')
     move.play()
   }
 }
